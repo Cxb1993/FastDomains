@@ -452,7 +452,7 @@ let App = {
     };
 
     let handleStats = function( request, response, socket, in_data ) {
-      logRequest( 'stats', in_data, request, socket );
+      // logRequest( 'stats', in_data, request, socket );
     };
 
     // REST API

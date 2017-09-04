@@ -9,9 +9,9 @@ cd ~/FastDomains/app/ && npm install
 make -C ~/FastDomains/db/build
 
 echo Active Processes
-ps aux | grep -P 'FastDomainsDB server|node .*index.js' | head -n -1
+ps aux | grep -P 'FastDomainsDB server|node .*index.js' | head
 
-PROCESSES=`ps aux | grep -P 'FastDomainsDB server|node .*index.js' | head -n -1 | grep -oP '^root\s+\d+' | grep -oP '\d+'`
+PROCESSES=`ps aux | grep -P 'FastDomainsDB server|node .*index.js' | head -n -1 | grep -oP '^root\s+\d+' | grep -oP '\d+' || :`
 
 for p in $PROCESSES; do
   echo "Killing process $p"

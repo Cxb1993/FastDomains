@@ -32,6 +32,7 @@ Server::Server(QObject *parent)
 {
     QNetworkConfigurationManager manager;
     if ( manager.capabilities() & QNetworkConfigurationManager::NetworkSessionRequired ) {
+        
         // Get saved network configuration
         QSettings settings(QSettings::UserScope, QLatin1String("QtProject"));
         settings.beginGroup(QLatin1String("QtNetwork"));
@@ -130,7 +131,6 @@ void Server::enqueueCommands( QTcpSocket* socket )
 {
   std::string str;
   mCommandQueue += socket->readAll();
-  // printf("Command queue: %s\n", mCommandQueue.toStdString().c_str() );
 
   QStringList commands = QString( mCommandQueue ).split( FAST_DOMAINS_EOC );
 
@@ -147,10 +147,7 @@ void Server::enqueueCommands( QTcpSocket* socket )
   } else {
     mCommandQueue = commands.last();
     commands.pop_back();
-    // printf("Requeue fragment...\n");
   }
-
-  // printf("Batched commands: %d\n", commands.size() );
 
   for( int i = 0; i < commands.size(); ++i ) {
 
@@ -158,11 +155,11 @@ void Server::enqueueCommands( QTcpSocket* socket )
 
     const QString& command = commands[i];
     QJsonObject jsonIn = QJsonDocument::fromJson( command.toStdString().c_str() ).object();
-    //printf( "Command: %s\n", command.toStdString().c_str() );
 
     // Prepare output JSON
 
     QJsonObject jsonOut;
+
     // Basic sanity check
 
     if ( jsonIn.contains("command") && jsonIn.contains("hash") && jsonIn.contains("ticketID") ) {
@@ -178,7 +175,6 @@ void Server::enqueueCommands( QTcpSocket* socket )
         jsonOut["status"] = REPLY_STATUS_DISCARD;
       } else {
         QString cmd = jsonIn["command"].toString();
-
         if ( "PING" == cmd ) {
           jsonOut["message"] = "PING";
         } else
@@ -214,8 +210,7 @@ void Server::enqueueCommands( QTcpSocket* socket )
             QString topic = jsonIn["topic"].toString().toUpper();
             QString filter = jsonIn["filter"].toString();
             QString sorting = jsonIn["sorting"].toString();
-            // TODO:
-            // error checking domain, filter and sorting
+            // TODO: error checking domain, filter and sorting
             bool err = ( filter != "pre" && filter != "post" && filter != "pre-post" ) ||
                        ( sorting != "len-asc" && sorting != "len-desc" && sorting != "alpha-asc" && sorting != "alpha-desc" && sorting != "random" && sorting != "popularity" ) ||
                        ( gTopicRegex.indexIn( topic ) == -1 && gCommandRegex.indexIn( topic ) == -1 );
@@ -240,18 +235,8 @@ void Server::enqueueCommands( QTcpSocket* socket )
           jsonOut["status"] = REPLY_STATUS_CLIENT_ERR;
           jsonOut["message"] = "Unknown command";
         }
-
-        // Process request
-        // FIXME: filter valid JSON parameters here
-        //QStringList keys = json.keys();
-        //for( QStringList::iterator it = keys.begin(); it != keys.end(); ++it ) {
-        //  printf("KEY: %s\n", it->toStdString().c_str() );
-        //}
-
-        // QThread::msleep( 10 );
       }
     } else {
-
       // Try and use what's there
 
       jsonOut["status"] = REPLY_STATUS_CLIENT_ERR;
@@ -260,11 +245,10 @@ void Server::enqueueCommands( QTcpSocket* socket )
 
       printf( "Invalid request: %s\n", command.toStdString().c_str() );
     }
+    
     // Send reply
-
     QByteArray json = QJsonDocument(jsonOut).toJson(QJsonDocument::Compact);
     socket->write( json + FAST_DOMAINS_EOC );
-    // printf("Reply: %s\n", json.toStdString().c_str() );
   }
 }
 

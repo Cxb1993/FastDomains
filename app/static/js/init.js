@@ -94,7 +94,7 @@
         $('.title, #tab-home').click(function() {
             $('#domain-ideas-input').val('');
             XS.panel_ideas.update_ideas(0);
-            document.location.hash = '/domain-name-search';
+            document.location.hash = '/ideas';
             XS.server.api_stats({'home': '1'});
         });
 
@@ -130,7 +130,7 @@
         XS.Router.start();
 
         if ( document.location.hash === '' ) {
-            document.location.hash = '/domain-name-search';
+            document.location.hash = '/ideas';
         }
 
         // ------------------------------------------------
@@ -153,14 +153,14 @@
 
         // ----------------------------------------------------------
 
-        XS.Router.addRoute('/domain-name-search').get(function(event, params) {
+        XS.Router.addRoute('/ideas').get(function(event, params) {
             highlight_navigation_button('ideas');
             open_panel(XS.panel_ideas, null);
         });
 
         // ----------------------------------------------------------
 
-        XS.Router.addRoute('/domain-name-search/:query').get(function(event, params) {
+        XS.Router.addRoute('/ideas/:query').get(function(event, params) {
             highlight_navigation_button('ideas');
             open_panel(XS.panel_ideas, params.query);
         });
@@ -176,7 +176,7 @@
 
         XS.Router.addRoute('/:anything').get(function(event, params) {
             // alert('what?');
-            document.location.hash = '/domain-name-search';
+            document.location.hash = '/ideas';
             // highlight_navigation_button('ideas');
             // open_panel(XS.panel_ideas);
         });

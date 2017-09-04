@@ -21,6 +21,11 @@ function registerDotCom( domain ) {
   window.open( 'https://wordpress.com/start/domain-first/site-or-domain?new=' + domain + '.com');
 }
 
+function viewDotCom( domain ) {
+  XS.server.api_stats({'view': 1});
+  window.open( 'http://' + domain + '.com');
+}
+
 // ----------------------------------------------------------------------------
 
 function component_domain_entry( domain, is_available ) {
@@ -28,10 +33,11 @@ function component_domain_entry( domain, is_available ) {
   $(td).addClass( is_available ? 'text-success' : 'text-danger' );
 
   var heart = is_favourite( domain ) ? 'glyphicon-heart' : 'glyphicon-heart-empty';
-  var check = 'glyphicon-chevron-right';
+  // var check = 'glyphicon-chevron-right';
 
   var html =
-  '<span class="single-domain-span">' + '<i class="glyphicon ' + check + '"></i> ' + domain + '<small>.com</small></span> ' +
+  // '<span class="single-domain-span">' + '<i class="glyphicon ' + check + '"></i> ' + domain + '<small>.com</small></span> ' +
+  '<span class="single-domain-span">' + domain + '<small>.com</small></span> ' +
   '<a href="#" onclick="return false;" target="_blank" class="pull-right faved-icon" title="Favourite"><i class="glyphicon ' + heart + '" data-domain="' + domain.toLowerCase() + '"></i></a>' +
   '<span class="pull-right">&nbsp;&nbsp;&nbsp;</span>' +
   '<a href="https://whois.icann.org/en/lookup?name=' + domain + '.com" target="_blank" class="pull-right domain-action" title="Whois"><i class="fa fa-question-circle-o"></i></a>';
@@ -136,12 +142,12 @@ XS.PanelIdeas = function(root_panel_id) {
     if ( XS.exact_available ) {
       registerDotCom( self.get_topic() );
     } else {
-      makeOfferDotCom( self.get_topic() );
+      viewDotCom( self.get_topic() );
     }
   });
 
   $('#ideas-clear').click(function() {
-    document.location.hash = '/domain-name-search';
+    document.location.hash = '/ideas';
     document.location.reload(true);
   });
 
@@ -278,9 +284,9 @@ XS.PanelIdeas.prototype.update_ideas = function( delay ) {
     }
 
     var ms = Date.now() - time_start;
-    $('#domain-ideas-summary').html(
-      'Found <span class="summary-highlight">' + data.ideasIndex.length + '</span> available domains with <span class="summary-highlight">' + topic
-      );
+    // $('#domain-ideas-summary').html( 'Found <span class="summary-highlight">' + data.ideasIndex.length + '</span> available domains with <span class="summary-highlight">' + topic + '</span>');
+    // $('#domain-ideas-summary').html( '<span class="summary-highlight">' + data.ideasIndex.length + '</span> available domains with <span class="summary-highlight">' + topic + '</span>');
+    $('#domain-ideas-summary').html( '<span class="summary-highlight">' + topic + '</span> found in <span class="summary-highlight">' + data.ideasIndex.length + '</span> available domains');
     $('#ideas').show();
 
     // speed monitoring
@@ -315,7 +321,7 @@ XS.PanelIdeas.prototype.update_ideas = function( delay ) {
     $('#exact-summary').show();
     $('#exact-name').text( topic + '.com' );
 
-    $('#exact-whois').attr( 'href', 'https://whois.icann.org/en/lookup?name=' + self.get_topic() + '.com' );
+    // $('#exact-whois').attr( 'href', 'https://whois.icann.org/en/lookup?name=' + self.get_topic() + '.com' );
     $('#exact-visit').attr( 'href', 'http://' + self.get_topic() + '.com' );
 
     if ( is_favourite( topic ) ) {
@@ -351,11 +357,13 @@ XS.PanelIdeas.prototype.update_ideas = function( delay ) {
 
         if ( index < prefix_end ) {
           domain = topic + XS.dictionary[ index ];
-          self.cells[ fill_ideas_i ].innerHTML = '<i class="glyphicon glyphicon-chevron-right" style="color: mediumseagreen;"></i> ' + topic + '<b>' + XS.dictionary[ index ] + '</b>' + '<small>.com</small>';
+          // self.cells[ fill_ideas_i ].innerHTML = '<i class="glyphicon glyphicon-chevron-right" style="color: mediumseagreen;"></i> ' + topic + '<b>' + XS.dictionary[ index ] + '</b>' + '<small>.com</small>';
+          self.cells[ fill_ideas_i ].innerHTML = topic + '<b>' + XS.dictionary[ index ] + '</b>' + '<small>.com</small>';
           self.cells[ fill_ideas_i ].title = 'Register ' + domain + '.com';
         } else {
           domain = XS.dictionary[ index ] + topic;
-          self.cells[ fill_ideas_i ].innerHTML = '<i class="glyphicon glyphicon-chevron-right" style="color: mediumseagreen;"></i> ' + '<b>' + XS.dictionary[ index ] + '</b>' + topic + '<small>.com</small>';
+          // self.cells[ fill_ideas_i ].innerHTML = '<i class="glyphicon glyphicon-chevron-right" style="color: mediumseagreen;"></i> ' + '<b>' + XS.dictionary[ index ] + '</b>' + topic + '<small>.com</small>';
+          self.cells[ fill_ideas_i ].innerHTML = '<b>' + XS.dictionary[ index ] + '</b>' + topic + '<small>.com</small>';
           self.cells[ fill_ideas_i ].title = 'Register ' + domain + '.com';
         }
 

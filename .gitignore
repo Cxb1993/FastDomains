@@ -1,6 +1,9 @@
 *.log
+*.swp
 .vscode
 db/build
 data
 node_modules
 ignore
+domains-check.txt
+domains-ideas.txt
