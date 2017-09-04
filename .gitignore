@@ -1,0 +1,6 @@
+*.log
+.vscode
+db/build
+data
+node_modules
+ignore

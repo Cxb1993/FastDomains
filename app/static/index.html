@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico?v=2">
+
+        <meta charset="utf-8">
+
+        <title>Fast Domains</title>
+
+        <meta name="description" content="Fast Domains">
+        <meta name="keywords" content=""/>
+        <meta name="robots" content="index, follow"/>
+
+        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+        <!-- social -->
+
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+        <link rel="stylesheet" href="bootstrap/css/bootstrap.css">
+        <link rel="stylesheet" href="font-awesome/css/font-awesome.min.css">
+
+        <link rel="stylesheet" media="screen" type="text/css" href="css/style.css"/>
+        <link rel="stylesheet" media="only screen and (max-width: 800px)" href="css/mobile.css"/>
+
+    </head>
+    <body style="width: 100%; display: none;">
+
+        <h1 id="title">Fast Domains (loading...)</h1>
+
+        <a name="domain-name-search"></a>
+        <div id="panel-ideas">
+            <div id="domain-ideas-input-group" class="input-group input-group-lg">
+                <input type="text" id="domain-ideas-input" class="form-control" placeholder="Type here to find your next domain name">
+                <div class="input-group-btn">
+                    <span id="ideas-clear" type="button" class="btn btn-default"><i class="glyphicon glyphicon-remove text-muted" style="vertical-align: middle;"></i></span>
+                    <span id="ideas-faved" type="button" class="btn btn-default"><i class="glyphicon glyphicon-heart text-muted" style="vertical-align: middle;"></i></span>
+                    <span id="ideas-options-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="glyphicon glyphicon-option-horizontal text-muted" style="vertical-align: middle;"></i></span>
+                    <ul id="ideas-options" class="dropdown-menu dropdown-menu-right">
+                        <li class="disabled"><a href="#"><b>Sorting</b></a></li>
+                        <li role="separator" class="divider"></li>
+                        <li id="ideas-opt-popularity"><a href="javascript:void(0)" title="Popularity"><i class="fa fa-thumbs-o-up"></i></a></li>
+                        <li id="ideas-opt-len-asc"><a href="javascript:void(0)" title="Short first"><i class="fa fa-sort-amount-asc"></i></a></li>
+                        <li id="ideas-opt-len-desc"><a href="javascript:void(0)" title="Long first"><i class="fa fa-sort-amount-desc"></i></a></li>
+                        <li id="ideas-opt-alpha-asc"><a href="javascript:void(0)" title="A to Z"><i class="fa fa-sort-alpha-asc"></i></a></li>
+                        <li id="ideas-opt-alpha-desc"><a href="javascript:void(0)" title="Z to A"><i class="fa fa-sort-alpha-desc"></i></a></li>
+                        <li id="ideas-opt-random"><a href="javascript:void(0)" title="Surprise me!"><i class="fa fa-random"></i></a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="disabled"><a href=""><b>Filter</b></a></li>
+                        <li role="separator" class="divider"></li>
+                        <li id="ideas-opt-pre-post"><a href="javascript:void(0)">All</a></li>
+                        <li id="ideas-opt-pre"><a href="javascript:void(0)">Abc&hellip;</a></li>
+                        <li id="ideas-opt-post"><a href="javascript:void(0)">&hellip;Abc</a></li>
+                    </ul>
+                </div><!-- /btn-group -->
+            </div>
+
+            <div id="exact-summary">
+                <i id="exact-love" class="glyphicon glyphicon-heart-empty faved-icon" style="font-size: 18px"></i> <span id="exact-name"></span>
+                &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                <div id="exact-summary-yes">
+                    <span id="exact-register" class="btn btn-success">REGISTER <i class="glyphicon glyphicon-chevron-right"></i></span>
+                </div>
+
+                <div id="exact-summary-no">
+                    &nbsp;
+                    <a id="exact-whois" target="_blank" href="/" class="btn btn-info">WHOIS <i class="glyphicon glyphicon-question-sign"></i></a>
+                    <a id="exact-visit" target="_blank" href="/" class="btn btn-info">VISIT <i class="glyphicon glyphicon-arrow-right"></i></a>
+                    <span id="exact-offer" class="btn btn-info">MAKE OFFER <i class="glyphicon glyphicon-gift"></i></span>
+                </div>
+            </div>
+
+            <div id="ideas">
+                <h1 id="domain-ideas-summary"></h1>
+                <div id="domain-ideas-feedback"></div>
+            </div>
+
+        </div>
+
+        <div id="faved-modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h3 class="modal-title">Favourites</h3>
+            </div>
+            <div class="modal-body">
+                <table class="fav-table">
+                    <tbody id="favourite">
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <script src="jsx/jquery-3.1.1.min.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+<!--
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+-->
+
+        <script src="jsx/simrou.js"></script>
+        <script src="jsx/clipboard.min.js"></script>
+        <script src="jsx/lodash.js"></script>
+        <script src="/socket.io/socket.io.js"></script>
+
+        <script src="js/core.js"></script>
+        <script src="js/language.js"></script>
+        <script src="js/ui.js"></script>
+        <script src="js/Server.js"></script>
+        <script src="js/dictionary.js"></script>
+        <script src="js/init.js"></script>
+    </body>
+</html>
+

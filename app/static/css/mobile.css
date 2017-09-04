@@ -1,0 +1,57 @@
+#global-wrapper {
+  width: 100%;
+  margin: 0 0;
+  padding: 0 1em; 
+}
+
+.title h1 {
+  font-size: 32px;
+}
+
+.title {
+  margin-top: 0;
+}
+
+#tabs {
+  margin-bottom: 1em;
+}
+
+.domain-idea {
+  display: block;
+  width: 100%;
+  margin: 0;
+}
+
+.domain-idea-color {
+  background-color: inherit;
+}
+
+.faved-icon i.glyphicon-heart-empty {
+  display: inline;
+}
+
+#preambolo {
+  margin: 6em 0 10em 0;
+  width: 100%;
+}
+
+#preambolo h3 {
+  font-size: 18px; 
+}
+
+#domain-ideas-input-group {
+  width: 100%;
+  padding: 0 1em;
+}
+
+#ideas {
+  width: 100%;
+}
+
+#domain-ideas-summary {
+  font-size: 20px;
+}
+
+#ideas-options, #ideas-options-btn, #ideas-clear {
+  display: none;
+}
